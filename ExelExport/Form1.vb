@@ -14,8 +14,6 @@ Public Class Form1
                 Debug.WriteLine(txtRuta)
 
                 Dim ApExel = New Excel.Application
-                'Dim nBook = ApExel.Workbooks.Add
-                'Dim nSheet = ApExel.Worksheets(1)
                 Dim nBook As Excel.Workbook
                 Dim nSheet As Excel.Worksheet
 
@@ -41,8 +39,6 @@ Public Class Form1
                     Dim oSheet As Object
                     oBook = oExel.ActiveWorkbook
                     oSheet = oExel.Worksheets(2)
-
-                    'Dim concepto = oSheet.Range("A4:A24").Copy()
 
                     Debug.WriteLine(files)
                     Debug.WriteLine(Path.GetFileNameWithoutExtension(files))
@@ -112,8 +108,6 @@ Public Class Form1
 
                 Next
 
-                'Libro.Sheets(1).Cells(2, 1) = "hola test"
-
                 SaveFileDialog1.DefaultExt = "*.xlsx"
                 SaveFileDialog1.FileName = "PrecioElectricidad"
                 SaveFileDialog1.Filter = "Archivos de Exel (*.xlsx)|*.xlsx"
@@ -123,54 +117,13 @@ Public Class Form1
                 MessageBox.Show("El archivo se creo y se guardo en:" & vbCrLf & SaveFileDialog1.FileName)
 
                 nBook.Close()
-                'ApExel.Quit()
                 nBook = Nothing
                 ApExel = Nothing
-
-                'Dim ApExel = New Microsoft.Office.Interop.Excel.Application
-                'Dim Libro = ApExel.Workbooks.Add
-
-                'Libro.Sheets(1).Cells(2, 1) = "hola test"
-
-                'SaveFileDialog1.DefaultExt = "*.xlsx"
-                'SaveFileDialog1.FileName = "PrecioElectricidad"
-                'SaveFileDialog1.Filter = "Archivos de Exel (*.xlsx)|*.xlsx"
-                'SaveFileDialog1.ShowDialog()
-
-                'Libro.SaveAs(SaveFileDialog1.FileName)
-                'MessageBox.Show("El archivo se creo y se guardo en:" & vbCrLf & SaveFileDialog1.FileName)
-
-                'ApExel.Quit()
-                'Libro = Nothing
-                'ApExel = Nothing
 
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
-
-        'Try
-        '    Dim ofdiag As New System.Windows.Forms.OpenFileDialog
-        '    ofdiag.Filter = "archivos exel |*.xls;*.xlsx"
-        '    If ofdiag.ShowDialog = DialogResult.OK Then
-        '        Dim strcamino As String = ofdiag.FileName
-        '        Dim strconn As String = "provider=microsoft.ace.oledb.12.0;" & "data source =" & strcamino & "; extended properties=""excel 12.0;hdr=no;imex=1"""
-
-        '        Dim conn As OleDb.OleDbConnection = New OleDb.OleDbConnection
-        '        conn.ConnectionString = strconn
-        '        conn.Open()
-
-        '        Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter("select * from [" & "i3dia01" & "$c5:c25]", conn)
-        '        dtOrigenOrigen = New DataTable
-
-        '        da.Fill(dtOrigenOrigen)
-
-        '        dgvDatos.DataSource = dtOrigenOrigen
-        '        dgvDatos.Refresh()
-        '    End If
-        'Catch ex As Exception
-        '    MessageBox.Show(ex.Message)
-        'End Try
 
     End Sub
 

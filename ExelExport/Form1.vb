@@ -122,7 +122,7 @@ Public Class Form1
                     ' Variables ProgressBar
                     ProgressBar1.Value = Cuenta
                     Cuenta = Cuenta + 1
-                    Label2.Text = ProgressBar1.Value & (" %")
+                    Label2.Text = CLng((ProgressBar1.Value * 100) / ProgressBar1.Maximum) & " %"
                 Next
 
                 Label1.Visible = True

@@ -11,3 +11,15 @@ C:\Users\Davidf\Source\Repos\ExelExport\ExelExport\bin\Debug\ExelExport.xml
 C:\Users\Davidf\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.exe
 C:\Users\Davidf\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.xml
 C:\Users\Davidf\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.pdb
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\bin\Debug\ExelExport.exe.config
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\bin\Debug\ExelExport.exe
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\bin\Debug\ExelExport.pdb
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\bin\Debug\ExelExport.xml
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.vbprojAssemblyReference.cache
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.vbproj.ResolveComReference.cache
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.Form1.resources
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.Resources.resources
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.vbproj.GenerateResource.cache
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.exe
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.xml
+C:\Users\ipsom\Source\Repos\ExelExport\ExelExport\obj\Debug\ExelExport.pdb

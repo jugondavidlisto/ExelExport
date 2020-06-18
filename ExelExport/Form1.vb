@@ -25,9 +25,8 @@ Public Class Form1
 
         'Variables Exel Original
         Dim originalExel = New Excel.Application
-        Dim originalBook As Excel.Workbook
-        Dim originalSheet As Excel.Worksheet
-
+        Dim originalBook As Object
+        Dim originalSheet As Object
 
         'Funcion principal
         If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
@@ -42,96 +41,89 @@ Public Class Form1
 
             Try
                 For Each files As String In Directory.GetFiles(txtRuta)
-                    'Filtro de archivos solo .xls
-                    Debug.WriteLine(Path.GetExtension(files))
-                    If Path.GetExtension(files) = ".xls" Then
-                        Dim strcamino As String = files
-                        originalExel.Workbooks.Open(strcamino)
 
-                        originalBook = originalExel.ActiveWorkbook
-                        originalSheet = originalExel.Worksheets(2)
+                    Dim strcamino As String = files
+                    originalExel.Workbooks.Open(strcamino)
 
-                        ' Obtencion de la fecha actual apartir de los nombres de archivo
-                        Debug.WriteLine(files)
-                        Debug.WriteLine(Path.GetFileNameWithoutExtension(files))
-                        Debug.WriteLine(Path.GetFileNameWithoutExtension(files).Substring(6, 8))
-                        Dim fecha = Path.GetFileNameWithoutExtension(files).Substring(6, 8)
+                    originalBook = originalExel.ActiveWorkbook
+                    originalSheet = originalExel.Worksheets(2)
 
-                        Debug.WriteLine(fecha.Substring(0, 4))
-                        Debug.WriteLine(fecha.Substring(4, 2))
-                        Debug.WriteLine(fecha.Substring(6, 2))
-                        Dim ano = fecha.Substring(0, 4)
-                        Dim mes = fecha.Substring(4, 2)
-                        Dim dia = fecha.Substring(6, 2)
+                    ' Obtencion de la fecha actual apartir de los nombres de archivo
+                    Debug.WriteLine(files)
+                    Debug.WriteLine(Path.GetFileNameWithoutExtension(files))
+                    Debug.WriteLine(Path.GetFileNameWithoutExtension(files).Substring(6, 8))
+                    Dim fecha = Path.GetFileNameWithoutExtension(files).Substring(6, 8)
 
-                        ' Correcion del nombre de la Hoja del Exel Export por el formato correcto G+numeroMes
-                        If exportSheet.Name = "Hoja1" Then
-                            exportSheet.Name = "G" & mes
-                        End If
+                    Debug.WriteLine(fecha.Substring(0, 4))
+                    Debug.WriteLine(fecha.Substring(4, 2))
+                    Debug.WriteLine(fecha.Substring(6, 2))
+                    Dim ano = fecha.Substring(0, 4)
+                    Dim mes = fecha.Substring(4, 2)
+                    Dim dia = fecha.Substring(6, 2)
 
-                        ' Condicional para la creacion de una nueva hoja si a terminado de llenar un mes
-                        If mes > exportSheet.Name.Substring(1, 2) And dia = 1 Then
-                            exportSheet = CType(exportBook.Worksheets.Add(), Excel.Worksheet)
-                            'nSheet = ApExel.Worksheets(nSheet.Count)
-                            columna = 2
-                            'exportSheet = exportBook.Worksheets(exportExel.Application.Sheets.Count)
-                            exportSheet.Name = "G" & mes
-                            ApExel_TitleSet = False
-                        End If
-                        Debug.WriteLine("Sheet Name: " & exportSheet.Name.Substring(1, 2))
-                        Debug.WriteLine("Sheet Count: " & exportExel.Application.Sheets.Count)
-
-                        'Copia de la columna de titulos
-                        If ApExel_TitleSet = False Then
-                            originalSheet.Range("A4:A25").Copy()
-
-                            'Dim titulo = oSheet.Sheets(1).Range("A1").Copy()
-                            exportSheet.Range("A1").PasteSpecial(Excel.XlPasteType.xlPasteValues)
-                            With exportSheet.Columns("A")
-                                .ColumnWidth = 36
-                            End With
-                            'nSheet.Columns("A").EntireColumn.AutoFit()
-                            exportSheet.Range("A23").Value = "Fecha"
-                            exportSheet.Range("A23").Font.Name = "Arial"
-                            exportSheet.Range("A23").Font.Size = 8
-
-                            ApExel_TitleSet = True
-                        End If
-
-                        'Copia de columna de information
-                        originalSheet.Range("C4:C25").Copy()
-                        exportSheet.Cells(1, columna).PasteSpecial(Excel.XlPasteType.xlPasteValues)
-                        With exportSheet.Columns(columna)
-                            .ColumnWidth = 15
-                        End With
-
-                        'Fotmateo de la fecha
-                        Dim fechaFinal As String = dia & "-" & mes & "-" & ano
-                        exportSheet.Cells(23, columna).Value = DateSerial(Month:=mes, Day:=dia, Year:=ano)
-                        exportSheet.Cells(23, columna).NumberFormat = "dd-mmm"
-                        exportSheet.Cells(23, columna).font.Name = "Arial"
-                        exportSheet.Cells(23, columna).font.Size = 8
-
-                        columna += 1
-
-                        ' por defecto esta hoja de trabajo se colocará delante de la primera
-                        ' el siguiente código lo moverá atras la hoja actual
-                        exportSheet.Move(After:=exportBook.Worksheets(exportBook.Worksheets.Count))
-
-                        ' Cierre del libro original
-                        'originalBook.Close()
-                        originalBook.Close(False)
-                        originalBook = Nothing
-
-
-                        ' Variables ProgressBar
-                        ProgressBar1.Value = Cuenta
-                        Cuenta = Cuenta + 1
-                        Label2.Text = CLng((ProgressBar1.Value * 100) / ProgressBar1.Maximum) & " %"
+                    ' Correcion del nombre de la Hoja del Exel Export por el formato correcto G+numeroMes
+                    If exportSheet.Name = "Hoja1" Then
+                        exportSheet.Name = "G" & mes
                     End If
-                Next
 
-                originalBook = Nothing
+                    ' Condicional para la creacion de una nueva hoja si a terminado de llenar un mes
+                    If mes > exportSheet.Name.Substring(1, 2) And dia = 1 Then
+                        exportSheet = CType(exportBook.Worksheets.Add(), Excel.Worksheet)
+                        'nSheet = ApExel.Worksheets(nSheet.Count)
+                        columna = 2
+                        'exportSheet = exportBook.Worksheets(exportExel.Application.Sheets.Count)
+                        exportSheet.Name = "G" & mes
+                        ApExel_TitleSet = False
+                    End If
+                    Debug.WriteLine("Sheet Name: " & exportSheet.Name.Substring(1, 2))
+                    Debug.WriteLine("Sheet Count: " & exportExel.Application.Sheets.Count)
+
+                    'Copia de la columna de titulos
+                    If ApExel_TitleSet = False Then
+                        originalSheet.Range("A4:A25").Copy()
+
+                        'Dim titulo = oSheet.Sheets(1).Range("A1").Copy()
+                        exportSheet.Range("A1").PasteSpecial(Excel.XlPasteType.xlPasteValues)
+                        With exportSheet.Columns("A")
+                            .ColumnWidth = 36
+                        End With
+                        'nSheet.Columns("A").EntireColumn.AutoFit()
+                        exportSheet.Range("A23").Value = "Fecha"
+                        exportSheet.Range("A23").Font.Name = "Arial"
+                        exportSheet.Range("A23").Font.Size = 8
+
+                        ApExel_TitleSet = True
+                    End If
+
+                    'Copia de columna de information
+                    originalSheet.Range("C4:C25").Copy()
+                    exportSheet.Cells(1, columna).PasteSpecial(Excel.XlPasteType.xlPasteValues)
+                    With exportSheet.Columns(columna)
+                        .ColumnWidth = 15
+                    End With
+
+                    'Fotmateo de la fecha
+                    Dim fechaFinal As String = dia & "-" & mes & "-" & ano
+                    exportSheet.Cells(23, columna).Value = DateSerial(Month:=mes, Day:=dia, Year:=ano)
+                    exportSheet.Cells(23, columna).NumberFormat = "dd-mmm"
+                    exportSheet.Cells(23, columna).font.Name = "Arial"
+                    exportSheet.Cells(23, columna).font.Size = 8
+
+                    columna += 1
+
+                    ' por defecto esta hoja de trabajo se colocará delante de la primera
+                    ' el siguiente código lo moverá atras la hoja actual
+                    exportSheet.Move(After:=exportBook.Worksheets(exportBook.Worksheets.Count))
+
+                    ' Cierre del libro original
+                    originalBook.Close()
+                    originalBook = Nothing
+
+                    ' Variables ProgressBar
+                    ProgressBar1.Value = Cuenta
+                    Cuenta = Cuenta + 1
+                    Label2.Text = ProgressBar1.Value & (" %")
+                Next
 
                 Label1.Visible = True
 
@@ -149,19 +141,6 @@ Public Class Form1
                 exportExel = Nothing
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
-
-                exportBook.Close(False)
-                exportBook = Nothing
-
-                originalBook.Close(False)
-                originalBook = Nothing
-
-                Cuenta = 0
-                ProgressBar1.Maximum = 0
-                Label1.Visible = False
-                Label2.Text = 0 & (" %")
-
-                'End
             End Try
         End If
 
@@ -204,22 +183,4 @@ Public Class Form1
         MessageBox.Show("Fin")
 
     End Sub
-
-    Private Sub ReleaseComObject(ByVal obj As Object)
-        Try
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
-            obj = Nothing
-        Catch ex As Exception
-            obj = Nothing
-        End Try
-    End Sub
-
-    'Private Sub Form_Load()
-    'Le asignamos las propiedades para el mínimo, máximo valor del Progress bar
-    'With ProgressBar1
-    '.Max = 5000
-    '.Min = 0
-    '.Value = 0
-    'End With
-    'End Sub
 End Class
